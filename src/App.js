@@ -19,9 +19,21 @@ function App() {
   var arr = word.map(JSON.parse);
   return (
     <div className="App">
-      {post}<br/>
-      {word}<br/>
-      {arr}
+      <table className="main-table">
+        <tr>
+          <th></th>
+          {arr[0].map(item => (
+            <th key={item}>{item}</th>
+          ))}
+        </tr>
+        {arr[1].map(item => (
+          <tr key={item}><th>{item}</th>
+          {arr[0].map(item => (
+            <td></td>
+          ))}
+          </tr>
+        ))}
+      </table>
     </div>
   );
 }
