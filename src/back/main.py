@@ -5,7 +5,7 @@ from data import *
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-@app.route("/array")
+@app.route("/dict")
 def showArray():
     return str(dict), 200, {"ContentType": "application/json"}
 
