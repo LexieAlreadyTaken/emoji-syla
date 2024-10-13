@@ -13,12 +13,15 @@ function App() {
     });
   }, []);
 
-  // if (!post) return null;
+  if (!post) return null;
+  var parsed = post.split("'");
+  var word = [parsed[1], parsed[3]];
+  var arr = word.map(JSON.parse);
   return (
     <div className="App">
-      {post}
-      {/* <h1>{post.title}</h1>
-      <p>{post.body}</p> */}
+      {post}<br/>
+      {word}<br/>
+      {arr}
     </div>
   );
 }
