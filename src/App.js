@@ -33,6 +33,14 @@ function App() {
     });
     setInput("");
   }
+  function mockSave() {
+    axios.get(baseURL+"save").then((response) => {
+      console.log("saved!")
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+  }
 
   React.useEffect(() => {
     axios.get(baseURL+"dict").then((response) => {
@@ -67,6 +75,7 @@ function App() {
         <input type="text" placeholder="输入emoji" value={input} onChange={updateInput} />
         <input type="submit" value="提交" />
       </form>
+      <button onClick={mockSave}>保存到文件</button>
     </div>
   );
 }
