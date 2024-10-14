@@ -8,12 +8,15 @@ dictIncr = {"ba": "8️⃣"}
 
 @app.route("/save")
 def saveDict():
-    with open('dict.json', 'r+', encoding='utf-8') as dictFile:
-        origDict = json.load(dictFile)
-        print(origDict)
-        origDict.update(dictIncr)
-        print(origDict)
-        json.dump(origDict, dictFile, ensure_ascii=False)
+    dictFile = open('dict.json', 'r', encoding='utf-8')
+    origDict = json.load(dictFile)
+    dictFile.close()
+    print(origDict)
+    origDict.update(dictIncr)
+    print(origDict)
+    dictFile = open('dict.json', 'w', encoding='utf-8')
+    json.dump(origDict, dictFile, ensure_ascii=False)
+    dictFile.close()
     return "Saved to File", 200, {"ContentType": "text/plain"}
 
 @app.route("/dict")
@@ -22,10 +25,10 @@ def showArray():
 
 @app.route("/add", methods=["POST"])
 def addSyllable():
-    shengmu = request.form["shengmu"]
-    yunmu = request.form["yunmu"]
+    syllable = request.form["syllable"]
     emoji = request.form["emoji"]
-    print(shengmu, yunmu, emoji)
+    dictIncr[syllable] = emoji
+    print(syllable, emoji)
     return "Added syllable", 200, {"ContentType": "text/plain"}
 
 if __name__ == "__main__":

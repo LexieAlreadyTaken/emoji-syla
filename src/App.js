@@ -14,8 +14,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     let data = {
-      shengmu: "b", //mock data
-      yunmu: "a", //mock data
+      syllable: "bai", //mock data
       emoji: input
     };
     var formData = new FormData()
