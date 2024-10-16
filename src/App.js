@@ -15,7 +15,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     let data = {
-      syllable: "bai", //mock data
+      syllable: coord,
       emoji: input
     };
     var formData = new FormData()
@@ -46,7 +46,7 @@ function App() {
     // const index = event.target.dataset.index
     // const item = this.state.toClickList[index];
 
-    // setCoord(item.coord);
+    setCoord(jtem+item);
   }
 
   React.useEffect(() => {
@@ -72,7 +72,8 @@ function App() {
         {arr[1].map(item => (
           <tr key={'row'+item}><th>{item}</th>
           {arr[0].map(jtem => (
-            <td key={jtem+item} onClick={(e)=>handleCoord(e,jtem,item)}></td>
+            <td key={jtem+item} title={jtem+item}
+              onClick={(e)=>handleCoord(e,jtem,item)}></td>
           ))}
           </tr>
         ))}
