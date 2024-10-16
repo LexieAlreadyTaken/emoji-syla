@@ -23,3 +23,15 @@ code {
 .main-table th {
   background-color: #f0f0f0;
 }
+.App {
+  display: flex;
+}
+.form {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+.imp {
+  color: transparent;
+  background-color: #f0f0f0;
+  font-size: 5px;
+}

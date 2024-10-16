@@ -9,7 +9,6 @@ function App() {
   const [input, setInput] = React.useState("");
   const [coord, setCoord] = React.useState("");
   const [dict, setDict] = React.useState({});
-  // var dict = {}
 
   function updateInput(event) {
     setInput(event.target.value);
@@ -56,6 +55,25 @@ function App() {
     console.log(jtem, item)
     setCoord(jtem+item);
   }
+  function impossible() {
+    let data = {
+      syllable: coord,
+      emoji: 'imp'
+    };
+    var formData = new FormData()
+    formData.append('params', JSON.stringify(data))
+    let config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    axios.post(baseURL+"add", data, config).then((response) => {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+  }
 
   React.useEffect(() => {
     load();
@@ -69,7 +87,6 @@ function App() {
   var word = [parsed[1], parsed[3]];
   var arr = word.map(JSON.parse);
   arr[1].sort()
-  console.log(dict)
   return (
     <div className="App">
       <table className="main-table">
@@ -82,7 +99,7 @@ function App() {
         {arr[1].map(item => (
           <tr key={'row'+item}><th>{item}</th>
           {arr[0].map(jtem => (
-            <td key={jtem+item} title={jtem+item}
+            <td key={jtem+item} title={jtem+item} className={[""+dict[jtem+item]]}
               onClick={(e)=>handleCoord(e,jtem,item)}>
                 {dict[jtem+item]}
             </td>
@@ -91,11 +108,14 @@ function App() {
         ))}
       </table>
       
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="输入emoji" value={input} onChange={updateInput} />
-        <input type="submit" value="提交" />
-      </form>
-      <button onClick={save}>保存到文件</button>
+      <div className="form">
+        <form onSubmit={handleSubmit}>
+          <input type="text" placeholder="输入emoji" value={input} onChange={updateInput} />
+          <input type="submit" value="提交" />
+        </form>
+        <button onClick={impossible}>设为不可能音节</button>
+        <button onClick={save}>保存到文件</button>
+      </div>
     </div>
   );
 }

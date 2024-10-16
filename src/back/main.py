@@ -4,7 +4,7 @@ from data import *
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-dictIncr = {"ba": "8️⃣"}
+dictIncr = {}
 
 @app.route("/save")
 def saveDict():
