@@ -8,6 +8,8 @@ function App() {
   const [post, setPost] = React.useState(null);
   const [input, setInput] = React.useState("");
   const [coord, setCoord] = React.useState("");
+  const [dict, setDict] = React.useState({});
+  // var dict = {}
 
   function updateInput(event) {
     setInput(event.target.value);
@@ -41,15 +43,22 @@ function App() {
       console.log(error)
     });
   }
+  function load() {
+    axios.get(baseURL+"load").then((response) => {
+      if (!response.data) return null;
+      setDict(response.data);
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+  }
   function handleCoord(event, jtem, item) {
-    console.log(event, jtem, item)
-    // const index = event.target.dataset.index
-    // const item = this.state.toClickList[index];
-
+    console.log(jtem, item)
     setCoord(jtem+item);
   }
 
   React.useEffect(() => {
+    load();
     axios.get(baseURL+"dict").then((response) => {
       setPost(response.data);
     });
@@ -60,6 +69,7 @@ function App() {
   var word = [parsed[1], parsed[3]];
   var arr = word.map(JSON.parse);
   arr[1].sort()
+  console.log(dict)
   return (
     <div className="App">
       <table className="main-table">
@@ -73,7 +83,9 @@ function App() {
           <tr key={'row'+item}><th>{item}</th>
           {arr[0].map(jtem => (
             <td key={jtem+item} title={jtem+item}
-              onClick={(e)=>handleCoord(e,jtem,item)}></td>
+              onClick={(e)=>handleCoord(e,jtem,item)}>
+                {dict[jtem+item]}
+            </td>
           ))}
           </tr>
         ))}

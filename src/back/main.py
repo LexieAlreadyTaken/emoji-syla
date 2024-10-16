@@ -11,13 +11,18 @@ def saveDict():
     dictFile = open('dict.json', 'r', encoding='utf-8')
     origDict = json.load(dictFile)
     dictFile.close()
-    print(origDict)
     origDict.update(dictIncr)
     print(origDict)
     dictFile = open('dict.json', 'w', encoding='utf-8')
     json.dump(origDict, dictFile, ensure_ascii=False)
     dictFile.close()
     return "Saved to File", 200, {"ContentType": "text/plain"}
+@app.route("/load")
+def loadDict():
+    dictFile = open('dict.json', 'r', encoding='utf-8')
+    origDict = json.load(dictFile)
+    dictFile.close()
+    return json.dumps(origDict), 200, {"ContentType": "text/plain"}
 
 @app.route("/dict")
 def showArray():
