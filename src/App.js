@@ -7,6 +7,7 @@ const baseURL = "http://127.0.0.1:5000/";
 function App() {
   const [post, setPost] = React.useState(null);
   const [input, setInput] = React.useState("");
+  const [coord, setCoord] = React.useState("");
 
   function updateInput(event) {
     setInput(event.target.value);
@@ -32,13 +33,20 @@ function App() {
     });
     setInput("");
   }
-  function mockSave() {
+  function save() {
     axios.get(baseURL+"save").then((response) => {
       console.log("saved!")
     })
     .catch(function (error) {
       console.log(error)
     });
+  }
+  function handleCoord(event, jtem, item) {
+    console.log(event, jtem, item)
+    // const index = event.target.dataset.index
+    // const item = this.state.toClickList[index];
+
+    // setCoord(item.coord);
   }
 
   React.useEffect(() => {
@@ -58,13 +66,13 @@ function App() {
         <tr>
           <th></th>
           {arr[0].map(item => (
-            <th key={item}>{item}</th>
+            <th key={'col'+item}>{item}</th>
           ))}
         </tr>
         {arr[1].map(item => (
-          <tr key={item}><th>{item}</th>
-          {arr[0].map(item => (
-            <td></td>
+          <tr key={'row'+item}><th>{item}</th>
+          {arr[0].map(jtem => (
+            <td key={jtem+item} onClick={(e)=>handleCoord(e,jtem,item)}></td>
           ))}
           </tr>
         ))}
@@ -74,7 +82,7 @@ function App() {
         <input type="text" placeholder="输入emoji" value={input} onChange={updateInput} />
         <input type="submit" value="提交" />
       </form>
-      <button onClick={mockSave}>保存到文件</button>
+      <button onClick={save}>保存到文件</button>
     </div>
   );
 }
